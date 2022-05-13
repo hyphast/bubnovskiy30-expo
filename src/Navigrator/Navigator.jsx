@@ -1,24 +1,41 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {BottomNavigation, BottomNavigationTab, Button, Icon, Layout, Text} from '@ui-kitten/components';
+import {
+  Avatar,
+  BottomNavigation,
+  BottomNavigationTab,
+  Button,
+  Divider,
+  Icon,
+  Layout,
+  Text
+} from '@ui-kitten/components';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {ThemeContext} from '../theme-context';
+import {View, StyleSheet, Image} from 'react-native';
+import user from '../../assets/user.jpg'
+import Profile from '../Profile/Profile';
+import Main from '../Main/Main'
+import NewAppointment from '../NewAppointment/NewAppointment'
 
 const {Navigator, Screen} = createBottomTabNavigator();
 
 const HomeScreen = () => {
-  const themeContext = React.useContext(ThemeContext);
+  // const themeContext = React.useContext(ThemeContext);
 
-  return <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Text category="h1">Главная</Text>
-    <Button onPress={themeContext.toggleTheme}>Изменить тему</Button>
-  </Layout>
+  // return <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+    {/*<Text category="h1">Главная</Text>*/}
+    {/*<Button onPress={themeContext.toggleTheme}>Изменить тему</Button>*/}
+  {/*</Layout>*/}
+
+  return <Main/>
 };
 
 const MakeAppointmentScreen = () => (
-  <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Text category="h1">Запись на занятия</Text>
-  </Layout>
+  // <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+  //   <Text category="h1">Запись на занятия</Text>
+  // </Layout>
+  <NewAppointment/>
 );
 
 const RecordsScreen = () => (
@@ -28,9 +45,21 @@ const RecordsScreen = () => (
 );
 
 const ProfileScreen = () => (
-  <Layout style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-    <Text category="h1">Профиль</Text>
-  </Layout>
+  <Profile/>
+  // <Layout>
+  //   <View style={styles.info}>
+  //     <Image source={user} style={{width: 130, height: 95}}/>
+  //     <View style={styles.details}>
+  //       <Text style={styles.title} category="h5">Иванов Иван Иванович</Text>
+  //       <Text category="h5">Мужчина</Text>
+  //       <Text category="h5">15.12.1993</Text>
+  //     </View>
+  //   </View>
+  //   <Divider/>
+  //   <View style={styles.edit}>
+  //     <Button style={styles.EditButton} appearance="outline" status="info">Редактировать</Button>
+  //   </View>
+  // </Layout>
 );
 
 const BottomTabBar = ({navigation, state}) => {
@@ -46,11 +75,11 @@ const BottomTabBar = ({navigation, state}) => {
 
 const TabNavigator = () => {
   return <Navigator tabBar={props => <BottomTabBar {...props} />}>
-      <Screen name="Главная" component={HomeScreen}/>
-      <Screen name="Запись" component={MakeAppointmentScreen}/>
-      <Screen name="Мои записи" component={RecordsScreen}/>
-      <Screen name="Профиль" component={ProfileScreen}/>
-    </Navigator>
+    <Screen name="Главная" component={HomeScreen}/>
+    <Screen name="Запись" component={MakeAppointmentScreen}/>
+    <Screen name="Мои записи" component={RecordsScreen}/>
+    <Screen name="Профиль" component={ProfileScreen}/>
+  </Navigator>
 }
 
 export const NavigatorComponent = () => {
@@ -60,3 +89,26 @@ export const NavigatorComponent = () => {
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  details: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    marginVertical: 4,
+  },
+  info: {
+    flexDirection: 'row',
+  },
+  title: {
+    marginHorizontal: 0,
+  },
+  edit: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  EditButton: {
+    marginVertical: 4,
+    paddingLeft: 50,
+    paddingRight: 50,
+  },
+});
