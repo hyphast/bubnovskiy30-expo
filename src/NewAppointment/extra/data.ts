@@ -1,6 +1,6 @@
 import { ImageSourcePropType } from 'react-native';
-import TreatmentImg from '../assets/Treatment.jpg'
-import PhysicalTraining from '../assets/PhysicalTraining.jpg'
+import TreatmentImg from '../assets/Treatment.jpg';
+import PhysicalTraining from '../assets/PhysicalTraining.jpg';
 
 export class Training {
 

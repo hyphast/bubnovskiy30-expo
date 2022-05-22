@@ -5,10 +5,20 @@ import {EvaIconsPack} from '@ui-kitten/eva-icons';
 import {ThemeContext} from './src/theme-context';
 import {NavigatorComponent} from './src/Navigrator/Navigator';
 import * as LocalAuthentication from 'expo-local-authentication';
-import {Alert, SafeAreaView, View, StatusBar as RnStatusBar,  TouchableHighlight, Button, StyleSheet} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import {
+  Alert,
+  SafeAreaView,
+  View,
+  StatusBar as RnStatusBar,
+  TouchableHighlight,
+  Button,
+  StyleSheet
+} from 'react-native';
+import {StatusBar} from 'expo-status-bar';
 import logo from './assets/logo.jpg'
 import {handleBiometricAuth} from './src/Auth/BiometricAuth/handleBiometricAuth';
+import SignIn from './src/SignIn/SignIn'
+
 
 export default function App() {
   const [theme, setTheme] = React.useState('light');
@@ -16,7 +26,7 @@ export default function App() {
   const [isAuth, setIsAuth] = React.useState(false);
 
   React.useEffect(async () => {
-        await handleBiometricAuth(setIsAuth)
+    await handleBiometricAuth(setIsAuth)
   }, []);
 
   const toggleTheme = () => {
@@ -37,37 +47,41 @@ export default function App() {
   // </View>
   if (!isAuth) {
     return <ApplicationProvider {...eva} theme={eva[theme]}>
-    <SafeAreaView>
-      <View style={styles.container}>
-        {/*<Text style={{color: 'white'}}>*/}
-        {/*  {isBiometricSupported*/}
-        {/*    ? 'Ваше устройство не поддерживает биометрию'*/}
-        {/*    : 'Вход по отпечатку пальца поддерживается на этом устройстве'}*/}
-        {/*</Text>*/}
+      {/*<SafeAreaView>*/}
+      {/*  <View style={styles.container}>*/}
+          {/*<Text style={{color: 'white'}}>*/}
+          {/*  {isBiometricSupported*/}
+          {/*    ? 'Ваше устройство не поддерживает биометрию'*/}
+          {/*    : 'Вход по отпечатку пальца поддерживается на этом устройстве'}*/}
+          {/*</Text>*/}
 
-        {/*  <TouchableHighlight*/}
-        {/*    style={{*/}
-        {/*      height: 60*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    <Button*/}
-        {/*      title="Войти по отпечатку пальца"*/}
-        {/*      accessoryLeft={<Icon name={'log-in'} />}*/}
-        {/*      onPress={handleBiometricAuth}*/}
-        {/*    />*/}
-        {/*  </TouchableHighlight>*/}
-        {/*<StatusBar style="auto"/>*/}
-        <View style={styles.details}>
-          <Avatar size='giant' source={logo}/>
-          <Text style={styles.title} category='h1'>Личный кабинет</Text>
-        </View>
-      </View>
-    </SafeAreaView>
+          {/*  <TouchableHighlight*/}
+          {/*    style={{*/}
+          {/*      height: 60*/}
+          {/*    }}*/}
+          {/*  >*/}
+          {/*    <Button*/}
+          {/*      title="Войти по отпечатку пальца"*/}
+          {/*      accessoryLeft={<Icon name={'log-in'} />}*/}
+          {/*      onPress={handleBiometricAuth}*/}
+          {/*    />*/}
+          {/*  </TouchableHighlight>*/}
+          {/*<StatusBar style="auto"/>*/}
+
+
+          {/*<View style={styles.details}>*/}
+          {/*  <Avatar size='giant' source={logo}/>*/}
+          {/*  <Text style={styles.title} category='h1'>Личный кабинет</Text>*/}
+          {/*</View>*/}
+
+          <SignIn/>
+      {/*  </View>*/}
+      {/*</SafeAreaView>*/}
     </ApplicationProvider>
   } else {
     return <>
       <IconRegistry icons={EvaIconsPack}/>
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
+      <ThemeContext.Provider value={{theme, toggleTheme}}>
         <ApplicationProvider {...eva} theme={eva[theme]}>
           <NavigatorComponent/>
         </ApplicationProvider>
@@ -77,13 +91,13 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: RnStatusBar.currentHeight,
-    // flex: 1,
-    marginVertical: 150,
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
+  // container: {
+  //   paddingTop: RnStatusBar.currentHeight,
+  //   // flex: 1,
+  //   marginVertical: 150,
+  //   paddingLeft: 20,
+  //   paddingRight: 20,
+  // },
   details: {
     flexDirection: 'row',
     alignItems: 'center',
